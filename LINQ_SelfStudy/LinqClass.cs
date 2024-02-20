@@ -242,7 +242,51 @@ namespace LINQ_SelfStudy
             }
             #endregion
         }
+        public void GroupJoinMethod()
+        {
+            #region
+            List<Department> departments = new List<Department>() {
+                new Department(1, "HR"),
+                new Department(2,"O'quv bo'limi"),
+                new Department(3,"Adminstratsiya")};
 
+            List<Employee> employees = new List<Employee>()
+            {
+                new Employee(1,"Robiya",1),
+                new Employee(2,"Laylo",2),
+                new Employee(3,"Zahro",3),
+                new Employee(4,"Hafiza",3),
+                new Employee(5,"Omina",1),
+                new Employee(6,"Odina",2),
+                new Employee(7,"Hadicha",3),
+                new Employee(8,"Fotima",3),
+                new Employee(9,"Sanoat",1),
+                new Employee(10,"Sevara",2),
+                new Employee(11,"Dilnura",3),
+                new Employee(12,"Malika",3),
+            };
+
+            var DE = departments.GroupJoin(
+                employees,
+                department=>department.DepartmentId,
+                employee=>employee.DepartmentId,
+                (departments, emp) => new
+                {
+                    departments.DepartmentId,
+                    departments.DepartmentName,
+                    employees=emp
+                }
+                );
+            foreach ( var de in DE)
+            {
+                Console.WriteLine(de.DepartmentId+" "+de.DepartmentName);
+                foreach( var emp in de.employees)
+                {
+                    Console.WriteLine($"{emp.EmployeeID} {emp.EmployeeName} {emp.DepartmentId}");
+                }
+            }
+            #endregion
+        }
     }
     public class Student
     {

@@ -46,7 +46,7 @@ namespace LINQ_SelfStudy
             #endregion
 
             LinqClass linqClass = new LinqClass();
-            linqClass.JoinMethod();
+            linqClass.GroupJoinMethod();
         }
     }
 }
