@@ -171,6 +171,25 @@ namespace LINQ_SelfStudy
             }
             #endregion
         }
+        public void ToLookUp()
+        {
+            IList<Student> studentList = new List<Student>() {
+                new Student() { StudentID = 1, StudentName = "John", Age = 18 } ,
+                new Student() { StudentID = 2, StudentName = "Steve",  Age = 21 } ,
+                new Student() { StudentID = 3, StudentName = "Bill",  Age = 18 } ,
+                new Student() { StudentID = 4, StudentName = "Ram" , Age = 20 } ,
+                new Student() { StudentID = 5, StudentName = "Abram" , Age = 21 }
+            };
+            var lst=studentList.ToLookup(x=> x.Age);
+            foreach (var student in lst)
+            {
+                Console.WriteLine(student.Key);
+                foreach(var s in student)
+                {
+                    Console.WriteLine($"{s.StudentID} {s.StudentName} {s.Age}");
+                }
+            }
+        }
     }
     public class Student
     {
