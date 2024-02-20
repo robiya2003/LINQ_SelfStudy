@@ -45,7 +45,8 @@ namespace LINQ_SelfStudy
             //}
             #endregion
 
-            
+            LinqClass linqClass = new LinqClass();
+            linqClass.GroupBYMethod();
         }
     }
 }

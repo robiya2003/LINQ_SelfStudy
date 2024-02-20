@@ -125,6 +125,52 @@ namespace LINQ_SelfStudy
             }
             #endregion
         }
+        public void GroupBYMethod()
+        {
+            #region
+            IList<Student> studentList = new List<Student>() {
+                new Student() { StudentID = 1, StudentName = "John", Age = 18 } ,
+                new Student() { StudentID = 2, StudentName = "Steve",  Age = 21 } ,
+                new Student() { StudentID = 3, StudentName = "Bill",  Age = 18 } ,
+                new Student() { StudentID = 4, StudentName = "Ram" , Age = 20 } ,
+                new Student() { StudentID = 5, StudentName = "Abram" , Age = 21 },
+                new Student() { StudentID = 1, StudentName = "John", Age = 18 } ,
+                new Student() { StudentID = 2, StudentName = "Steve",  Age = 21 } ,
+                new Student() { StudentID = 3, StudentName = "Bill",  Age = 18 } ,
+                new Student() { StudentID = 4, StudentName = "Ram" , Age = 20 } ,
+                new Student() { StudentID = 5, StudentName = "Abram" , Age = 21 },
+                new Student() { StudentID = 1, StudentName = "John", Age = 18 } ,
+                new Student() { StudentID = 2, StudentName = "Steve",  Age = 21 } ,
+                new Student() { StudentID = 3, StudentName = "Bill",  Age = 18 } ,
+                new Student() { StudentID = 4, StudentName = "Ram" , Age = 20 } ,
+                new Student() { StudentID = 5, StudentName = "Abram" , Age = 21 }
+            };
+            Console.WriteLine("----lstMetjodsyntaksis");
+            var lstMetjodsyntaksis = studentList.GroupBy(x => x.Age);
+            foreach(var l in lstMetjodsyntaksis)
+            {
+                Console.WriteLine(l.Key);
+                foreach(Student student in l)
+                {
+                    Console.WriteLine($"     {student.StudentID} {student.StudentName} {student.Age}");
+                }
+                
+            }
+            Console.WriteLine("----query syntaksis");
+            var querysyntaksis = from student in studentList
+                                 group student by student.StudentID;
+
+            foreach (var l in querysyntaksis)
+            {
+                Console.WriteLine(l.Key);
+                foreach (Student student in l)
+                {
+                    Console.WriteLine($"     {student.StudentID} {student.StudentName} {student.Age}");
+                }
+
+            }
+            #endregion
+        }
     }
     public class Student
     {
