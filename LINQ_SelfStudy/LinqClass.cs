@@ -173,6 +173,7 @@ namespace LINQ_SelfStudy
         }
         public void ToLookUp()
         {
+            #region
             IList<Student> studentList = new List<Student>() {
                 new Student() { StudentID = 1, StudentName = "John", Age = 18 } ,
                 new Student() { StudentID = 2, StudentName = "Steve",  Age = 21 } ,
@@ -189,7 +190,59 @@ namespace LINQ_SelfStudy
                     Console.WriteLine($"{s.StudentID} {s.StudentName} {s.Age}");
                 }
             }
+            #endregion
         }
+        public void JoinMethod()
+        {
+            #region
+            List<Department> departments = new List<Department>() {
+                new Department(1, "HR"),
+                new Department(2,"O'quv bo'limi"),
+                new Department(3,"Adminstratsiya")};
+
+            List<Employee> employees = new List<Employee>()
+            {
+                new Employee(1,"Robiya",1),
+                new Employee(2,"Laylo",2),
+                new Employee(3,"Zahro",3),
+                new Employee(4,"Hafiza",3),
+                new Employee(5,"Omina",1),
+                new Employee(6,"Odina",2),
+                new Employee(7,"Hadicha",3),
+                new Employee(8,"Fotima",3),
+                new Employee(9,"Sanoat",1),
+                new Employee(10,"Sevara",2),
+                new Employee(11,"Dilnura",3),
+                new Employee(12,"Malika",3),
+            };
+            var DE = employees.Join(departments,
+                employee => employee.DepartmentId,
+                department => department.DepartmentId,
+                (employee,department)=>new { employee.EmployeeID,employee.EmployeeName,department.DepartmentName });
+
+            var DEQ = from e in employees
+                      join d in departments
+                      on e.DepartmentId equals d.DepartmentId
+                      select new
+                      {
+                          e.EmployeeID,
+                          e.EmployeeName,
+                          d.DepartmentName
+                      };
+            
+            Console.WriteLine("-----Method sytntaksisi orqali");
+            foreach (var de in DE)
+            {
+                Console.WriteLine($"{de.EmployeeID} , {de.EmployeeName} , {de.DepartmentName}");
+            }
+            Console.WriteLine("-----Query sytaksisi");
+            foreach (var de in DEQ)
+            {
+                Console.WriteLine($"{de.EmployeeID} , {de.EmployeeName} , {de.DepartmentName}");
+            }
+            #endregion
+        }
+
     }
     public class Student
     {
@@ -197,4 +250,27 @@ namespace LINQ_SelfStudy
         public string StudentName { get; set; }
         public int Age { get; set; }
     }
+    public class Employee
+    {
+        public int EmployeeID { get; set; } 
+        public string EmployeeName { get; set; }
+        public int DepartmentId { get; set; }
+        public Employee(int EmployeeId, string EmployeeName, int DepartmentId)
+        {
+            this.EmployeeID = EmployeeId;
+            this.EmployeeName = EmployeeName;
+            this.DepartmentId = DepartmentId;
+
+        }
+    };
+    public class Department
+    {
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
+        public Department(int DepartmentID, string name)
+        {
+            DepartmentId = DepartmentID;
+            DepartmentName = name;
+        }
+    };
 }
